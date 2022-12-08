@@ -2,18 +2,19 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { BehaviorSubject } from "rxjs";
 
-const defaultUser = null;
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
-  public user$: any = new BehaviorSubject(defaultUser);
 
   constructor(private httpclient: HttpClient) { }
   // Login API URLs
   public readonly urlLogin = environment.ApiUrl + '/api/Account/Login';
+  public readonly urlGetUser = environment.ApiUrl + '/api/User/Get';
+  public readonly urlAddUser = environment.ApiUrl + '/api/User/Add';
+  public readonly urlEditUser = environment.ApiUrl + '/api/User/Edit';
+  public readonly urlDeleteUser = environment.ApiUrl + '/api/User/Delete';
 
   //Simple get with dynamic response
   public get(_url: string) {
@@ -25,8 +26,22 @@ export class CommonService {
     return this.httpclient.post(_url, param);
   }
 
-  public setUser(user: any) {
-    sessionStorage.setItem("currentUser", JSON.stringify(user));
-    this.user$.next(user);
+  public put(_url: string, param: any) {
+    return this.httpclient.put(_url, param);
+  }
+
+  public delete(_url: string) {
+    return this.httpclient.delete(_url);
+  }
+
+  public setToken(token: any) {
+    sessionStorage.setItem("token", token);
+  }
+
+  public uploadFile<T>(_url: string, file: File): Observable<T> {
+    let formData = new FormData();
+    formData.append('file', file, file.name);
+
+    return this.httpclient.post<T>(_url, formData);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { User } from '../../../Models/CommonModels';
 
 @Component({
   selector: 'app-popup',
@@ -8,9 +9,14 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class PopupComponent implements OnInit {
   model: any;
+  Header: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public d: any, public dialogRef: MatDialogRef<PopupComponent>) {
     this.model = d.Data;
+    this.Header = d.Header;
+    if (this.Header == 'Add User') {
+      this.model = new User();
+    }
   }
 
   ngOnInit(): void {
@@ -20,7 +26,7 @@ export class PopupComponent implements OnInit {
     this.dialogRef.close("Confirmed");
   }
 
-  OnSave() {
-    this.dialogRef.close("Save");
+  OnSave(model: any) {
+    this.dialogRef.close(model);
   }
 }

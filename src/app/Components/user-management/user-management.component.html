@@ -1,4 +1,15 @@
 <div>
+  <button (click)="OpenAddEditPopup('Add')" mat-flat-button class="default-btn small-btn" color="primary">
+    Add New User
+  </button>
+  
+  <button (click)="Logout()" mat-flat-button class="default-btn small-btn" color="primary" style="margin: 10px;">
+    Logout
+  </button>
+</div>
+
+
+<div *ngIf="Users?.length > 0">
   <table class="table table-striped">
     <thead>
       <tr>
@@ -12,19 +23,19 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-        <td>4</td>
-        <td>5</td>
+      <tr *ngFor="let user of Users">
+        <td>{{user.id}}</td>
+        <td>{{user.userName}}</td>
+        <td>{{user.password}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.photo}}</td>
         <td>
-          <button (click)="OpenEditPopup()" mat-flat-button class="default-btn small-btn" color="primary">
+          <button (click)="OpenAddEditPopup('Edit', user)" mat-flat-button class="default-btn small-btn" color="primary">
             Edit
           </button>
         </td>
         <td>
-          <button (click)="OpenDeletePopup()" mat-flat-button class="default-btn small-btn" color="primary">
+          <button (click)="OpenDeletePopup(user.id)" mat-flat-button class="default-btn small-btn" color="primary">
             Delete
           </button>
         </td>
@@ -32,6 +43,6 @@
     </tbody>
   </table>
 </div>
-<div class="alert bg-grey mat-elevation-z4">
+<div class="alert bg-grey mat-elevation-z4" *ngIf="Users?.length <= 0">
   <span class="message mat-subheading-2">No record found.</span>
 </div>

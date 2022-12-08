@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   username: string = '';
-  pwd: string = '';
+  password: string = '';
 
   constructor(private toastrService: ToastrService,
     private spinnerService: NgxSpinnerService, private commonService: CommonService, private router: Router
@@ -23,20 +23,27 @@ export class LoginComponent implements OnInit {
   login() {
     let userModel = {
       Username: this.username,
-      Password: this.pwd
+      Password: this.password
     }
+
     this.spinnerService.show();
     let url = this.commonService.urlLogin;
+
     this.commonService.post(url, userModel).subscribe(data => {
       this.spinnerService.hide();
       let userData: any = data;
-      if (userData && userData.status) {
-        this.commonService.setUser(userData.user);
+      if (userData?.token) {
+        this.commonService.setToken(userData.token);
         this.router.navigateByUrl('/user-management');
-        return;
       }
-      this.toastrService.error(userData.message, 'Not Authenticated');
-      return;
-    });
+      else {
+        this.toastrService.error('Username or Password is not correct');
+      }
+    },
+      err => {
+        if (err.status == 404) {
+          this.toastrService.error(err.error);
+        }
+      });
   }
 }

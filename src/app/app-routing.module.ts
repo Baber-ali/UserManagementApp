@@ -6,7 +6,7 @@ import { LoginComponent } from './Components/login/login.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'user-management', component: UserManagementComponent },
+  { path: 'user-management', component: UserManagementComponent, canActivate: [AuthGuard] },
   
 ];
 
