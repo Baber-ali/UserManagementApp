@@ -2,7 +2,7 @@
   <button (click)="OpenAddEditPopup('Add')" mat-flat-button class="default-btn small-btn" color="primary">
     Add New User
   </button>
-  
+
   <button (click)="Logout()" mat-flat-button class="default-btn small-btn" color="primary" style="margin: 10px;">
     Logout
   </button>
@@ -17,7 +17,6 @@
         <th>UserName</th>
         <th>Password</th>
         <th>Email</th>
-        <th>Photo</th>
         <th></th>
         <th></th>
       </tr>
@@ -28,7 +27,6 @@
         <td>{{user.userName}}</td>
         <td>{{user.password}}</td>
         <td>{{user.email}}</td>
-        <td>{{user.photo}}</td>
         <td>
           <button (click)="OpenAddEditPopup('Edit', user)" mat-flat-button class="default-btn small-btn" color="primary">
             Edit

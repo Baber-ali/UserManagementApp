@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../../Service/common.service';
 import { User } from '../../Models/CommonModels';
 import { Router } from '@angular/router';
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-user-management',
@@ -15,7 +16,7 @@ export class UserManagementComponent implements OnInit {
   Users: any;
 
   constructor(public dialog: MatDialog, private toastrService: ToastrService, private commonService: CommonService,
-    private router: Router  ) { }
+    private router: Router) { }
 
   ngOnInit(): void {
     this.GetUsers();
@@ -38,10 +39,11 @@ export class UserManagementComponent implements OnInit {
   }
 
   OpenAddEditPopup(type: string, user: User = new User()) {
+    let model = this.commonService.clone_model(user);
 
     const dialogRef = this.dialog.open(PopupComponent, {
       panelClass: 'modal-medium',
-      data: { dialogueName: 'AddEditUser', Header: type + ' User', Data: user },
+      data: { dialogueName: 'AddEditUser', Header: type + ' User', Data: model },
       autoFocus: false,
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -152,23 +154,4 @@ export class UserManagementComponent implements OnInit {
 
     
   }
-
-  dataURItoBlob(dataURI: any) {
-  // convert base64 to raw binary data held in a string
-  var byteString = atob(dataURI.split(',')[1]);
-
-  // separate out the mime component
-  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-  // write the bytes of the string to an ArrayBuffer
-  var arrayBuffer = new ArrayBuffer(byteString.length);
-  var _ia = new Uint8Array(arrayBuffer);
-  for (var i = 0; i < byteString.length; i++) {
-    _ia[i] = byteString.charCodeAt(i);
-  }
-
-  var dataView = new DataView(arrayBuffer);
-  var blob = new Blob([dataView], { type: mimeString });
-  return blob;
-}
 }

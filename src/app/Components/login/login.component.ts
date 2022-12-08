@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
+  modelValid: boolean = true;
 
   constructor(private toastrService: ToastrService,
     private spinnerService: NgxSpinnerService, private commonService: CommonService, private router: Router
@@ -21,6 +22,20 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.modelValid = true;
+
+    if (!this.username) {
+      this.modelValid = false;
+      this.toastrService.error('Username is empty.');
+      return;
+    }
+    if (!this.password) {
+      this.modelValid = false;
+      this.toastrService.error('Password is empty.');
+      return;
+    }
+
+
     let userModel = {
       Username: this.username,
       Password: this.password

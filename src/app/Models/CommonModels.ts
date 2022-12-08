@@ -3,5 +3,4 @@ export class User {
   userName: string | undefined;
   password: string | undefined;
   email: string | undefined;
-  photo: string | undefined;
 }

@@ -23,26 +23,20 @@
     <mat-card>
       <mat-card-content>
         <p>
-          <mat-form-field>
+          <mat-form-field [ngClass]="{'invalid': !modelValid && !model.userName}">
             <input type="text" matInput placeholder="UserName" [(ngModel)]="model.userName">
           </mat-form-field>
         </p>
 
         <p>
-          <mat-form-field>
+          <mat-form-field [ngClass]="{'invalid': !modelValid && !model.password}">
             <input type="text" matInput placeholder="Password" [(ngModel)]="model.password">
           </mat-form-field>
         </p>
 
         <p>
-          <mat-form-field>
+          <mat-form-field [ngClass]="{'invalid': !modelValid && (!model.email || !emailValid)}">
             <input type="email" matInput placeholder="Email" [(ngModel)]="model.email">
-          </mat-form-field>
-        </p>
-
-        <p>
-          <mat-form-field>
-            <input type="text" matInput placeholder="Photo" [(ngModel)]="model.photo">
           </mat-form-field>
         </p>
 

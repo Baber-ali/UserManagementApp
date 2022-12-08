@@ -2,14 +2,16 @@
   <mat-card-title>Login</mat-card-title>
   <mat-card-content>
       <p>
-        <mat-form-field>
-          <input type="text" matInput placeholder="Username" [(ngModel)]="username">
+        <mat-form-field [ngClass]="{'invalid': !modelValid && !username}">
+          <input type="text" matInput placeholder="Username" 
+                 [(ngModel)]="username">
         </mat-form-field>
       </p>
 
       <p>
-        <mat-form-field>
-          <input type="password" matInput placeholder="Password" [(ngModel)]="password">
+        <mat-form-field [ngClass]="{'invalid': !modelValid && !password}">
+          <input type="password" matInput placeholder="Password"
+                 [(ngModel)]="password">
         </mat-form-field>
       </p>
 

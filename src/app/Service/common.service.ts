@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +8,8 @@ import { Observable, of } from 'rxjs';
 export class CommonService {
 
   constructor(private httpclient: HttpClient) { }
+  public readonly emailRegex = "/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g";
+
   // Login API URLs
   public readonly urlLogin = environment.ApiUrl + '/api/Account/Login';
   public readonly urlGetUser = environment.ApiUrl + '/api/User/Get';
@@ -26,10 +27,12 @@ export class CommonService {
     return this.httpclient.post(_url, param);
   }
 
+  //Simple put with dynamic response
   public put(_url: string, param: any) {
     return this.httpclient.put(_url, param);
   }
 
+  //Simple delete with dynamic response
   public delete(_url: string) {
     return this.httpclient.delete(_url);
   }
@@ -38,10 +41,7 @@ export class CommonService {
     sessionStorage.setItem("token", token);
   }
 
-  public uploadFile<T>(_url: string, file: File): Observable<T> {
-    let formData = new FormData();
-    formData.append('file', file, file.name);
-
-    return this.httpclient.post<T>(_url, formData);
+  public clone_model(model: any): any {
+    return JSON.parse(JSON.stringify(model));
   }
 }

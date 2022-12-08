@@ -6,3 +6,15 @@
 * {
   box-sizing: border-box;
 }
+
+.invalid {
+  border-color: red !important;
+
+  .mat-form-field-label, .mat-select-arrow {
+    color: red !important;
+  }
+
+  &.btn-validation {
+    border-color: red !important;
+  }
+}
