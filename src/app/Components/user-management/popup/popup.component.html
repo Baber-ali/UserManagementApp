@@ -1,0 +1,57 @@
+<!--Warning dialog-->
+<div class="modal-content" *ngIf="d.dialogueName == 'ConfirmDelete'">
+  <div class="dialog-action-header">
+    <h2 mat-dialog-title>{{model.header}}</h2>
+  </div>
+  <mat-dialog-content class="mat-typography no-pad">
+    <div class="default-mg-20">
+      <p class="mat-body-1" [innerHTML]="model.msg"></p>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-flat-button class="inline-btn default-btn" color="primary" (click)="OnDeleteConfirm()">Yes</button>
+    <button mat-stroked-button class="inline-btn default-btn" color="black" mat-dialog-close>No</button>
+  </mat-dialog-actions>
+</div>
+
+<!--Edit User-->
+<div class="modal-content" *ngIf="d.dialogueName == 'EditUser'">
+  <div class="dialog-action-header">
+    <h2 mat-dialog-title>{{model.header}}</h2>
+  </div>
+  <mat-dialog-content class="mat-typography no-pad">
+    <mat-card>
+      <mat-card-content>
+        <p>
+          <mat-form-field>
+            <input type="text" matInput placeholder="Id">
+          </mat-form-field>
+        </p>
+
+        <p>
+          <mat-form-field>
+            <input type="text" matInput placeholder="UserName">
+          </mat-form-field>
+        </p>
+
+        <p>
+          <mat-form-field>
+            <input type="password" matInput placeholder="Password">
+          </mat-form-field>
+        </p>
+
+        <p>
+          <mat-form-field>
+            <input type="text" matInput placeholder="Email">
+          </mat-form-field>
+        </p>
+
+      </mat-card-content>
+    </mat-card>
+
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-flat-button class="inline-btn default-btn" color="primary" (click)="OnSave()">Save</button>
+    <button mat-stroked-button class="inline-btn default-btn" color="black" mat-dialog-close>Cancel</button>
+  </mat-dialog-actions>
+</div>
